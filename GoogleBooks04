@@ -1,0 +1,18 @@
+#APA方式で表示(出版社はなし)
+import json  #jsonモジュール
+from pathlib import Path #pathlibモジュールからPathオブジェクト
+
+bjson = Path('books.json')
+bjson_text = bjson.read_text(encoding='utf-8')
+bjson_dic = json.loads(bjson_text)
+for item in bjson_dic['items']:
+    #著者名を表示
+    print(item['volumeInfo']['authors'],'._',
+    #出版年(月)
+    '(',item['volumeInfo']['publishedDate'],')._',
+    #タイトル
+    '『',item['volumeInfo']['title'],'』._') 
+    #ISBN(13桁)を表示(改行)
+    print('ISBN:',item['volumeInfo']['industryIdentifiers'][1]['identifier'])
+    #改行して、リンク先を表示　
+    print('リンク:'+item['volumeInfo']['previewLink'])
