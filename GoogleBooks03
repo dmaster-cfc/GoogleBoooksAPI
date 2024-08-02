@@ -1,0 +1,18 @@
+#jsonファイル「books.json」からタイトル、出版年、ISBN、リンクを表示
+import json  #jsonモジュール
+from pathlib import Path #pathlibモジュールからPathオブジェクト
+
+bjson = Path('books.json')
+bjson_text = bjson.read_text(encoding='utf-8')
+bjson_dic = json.loads(bjson_text)
+for item in bjson_dic['items']:
+    #本のタイトルを表示
+    print('本のタイトル:'+item['volumeInfo']['title'],
+    #出版年を表示
+    '出版年:',item['volumeInfo']['publishedDate'],
+    #ISBN(13桁)を表示
+    'ISBN:',item['volumeInfo']['industryIdentifiers'][0]['identifier'])
+    #改行をして、内容を表示
+    print('内容:',item['volumeInfo']['description']) 
+    #改行して、リンク先を表示　
+    print('リンク:',item['volumeInfo']['previewLink'])
